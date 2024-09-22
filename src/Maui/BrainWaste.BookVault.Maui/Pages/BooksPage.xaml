@@ -1,0 +1,44 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:BrainWaste.BookVault.Maui.Models"
+             xmlns:pageModels="clr-namespace:BrainWaste.BookVault.Maui.PageModels"
+             x:DataType="pageModels:BooksPageModel"
+             x:Class="BrainWaste.BookVault.Maui.Pages.BooksPage"
+             Title="{Binding Title}">
+
+    <!-- Define Grid with two rows -->
+    <Grid RowDefinitions="Auto, *">
+        
+        <!-- First Row: Add New Book -->
+        <VerticalStackLayout Grid.Row="0" Padding="10">
+            <Entry
+                Text="{Binding BookTitle}"
+                Placeholder="Book title" />
+            <Label
+                Text="{Binding BookTitle}"
+                FontSize="50"
+                HorizontalOptions="Center" />
+            <Button
+                Text="Add book"
+                IsEnabled="{Binding IsAddBookButtonEnabled}"
+                Command="{Binding AddBookCommand}" />
+        </VerticalStackLayout>
+
+        <!-- Second Row: Display list of books -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout>
+                <!-- Scrollable CollectionView -->
+                <CollectionView
+                    ItemsSource="{Binding Books}"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Book">
+                            <Label Text="{Binding DisplayText}" FontSize="20" Padding="10" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+        
+    </Grid>
+</ContentPage>
